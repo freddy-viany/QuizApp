@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Start Quiz</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+        crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h2 class="my-4">Start Quiz</h2>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Topic: <span th:text="${topic.name}"></span></h5>
+      <p class="card-text">Here are 10 random questions for the quiz:</p>
+      <form action="/quizzes/{quizId}/submit" method="post" th:object="${userAnswers}">
+
+        <ul class="list-group">
+          <li class="list-group-item m-2" th:each="question, questionIndex : ${questions}">
+            <div><strong th:text="${questionIndex.index + 1} + '. ' + ${question.description}"></strong></div>
+            <div class="form-check mt-2">
+              <input class="form-check-input" type="radio" th:id="'optionOne-' + ${question.id}"
+                     th:name="'question_' + ${question.id}" th:value="${question.optionOne}">
+              <label class="form-check-label" for="optionOne-{{question.id}}" th:text="${question.optionOne}"></label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" th:id="'optionTwo-' + ${question.id}"
+                     th:name="'question_' + ${question.id}" th:value="${question.optionTwo}">
+              <label class="form-check-label" for="optionTwo-{{question.id}}" th:text="${question.optionTwo}"></label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" th:id="'optionThree-' + ${question.id}"
+                     th:name="'question_' + ${question.id}" th:value="${question.optionThree}">
+              <label class="form-check-label" for="optionThree-{{question.id}}" th:text="${question.optionThree}"></label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" th:id="'optionFour-' + ${question.id}"
+                     th:name="'question_' + ${question.id}" th:value="${question.optionFour}">
+              <label class="form-check-label" for="optionFour-{{question.id}}" th:text="${question.optionFour}"></label>
+            </div>
+          </li>
+        </ul>
+        <button type="submit" class="btn btn-primary mt-3">Submit Answers</button>
+      </form>
+    </div>
+  </div>
+
+  <a class="btn btn-secondary mt-3" href="/quizzes">Back to Quiz List</a>
+</div>
+
+<!-- Bootstrap JS (optional) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+2BePxe2yF/egx0GnLEqdL/6OVXw1ckIurw"
+        crossorigin="anonymous"></script>
+</body>
+</html>
